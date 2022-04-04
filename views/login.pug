@@ -1,0 +1,31 @@
+extends layout
+
+block content 
+    h2(style='text-align: center') Login Page
+    .login
+        form#login(method='get', action='login.php')
+        label#loginLabel
+        b
+            | User Name
+        br
+        input#Uname(type='text', name='Uname', placeholder='Username')
+        br
+        br
+        label#loginLabel
+        b
+            | Password
+        br
+        input#Pass(type='Password', name='Pass', placeholder='Password')
+        br
+        br
+        input#log(type='button', name='log', value='Log In Here')
+        br
+        br
+        input#check(type='checkbox')
+        span Remember me
+        br
+        br
+        |         Forgot 
+        a(href='#') Password
+    
+
