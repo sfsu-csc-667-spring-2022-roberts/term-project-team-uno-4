@@ -1,0 +1,35 @@
+extends layout
+
+block content 
+    h2(style='text-align: center') Register Page
+    .login
+        form#login(method='get', action='login.php')
+        label#loginLabel
+        b
+            | User Name
+        br
+        input#Uname(type='text', name='Uname', placeholder='Username')
+        br
+        br
+        label#loginLabel
+        b
+            | Password
+        br
+        input#Pass(type='Password', name='Pass', placeholder='Password')
+        br
+        label#loginLabel
+        b
+            | Email 
+        br
+        input#email(type='text', name='email', placeholder="Email")
+        br 
+        label#loginLabel
+        b
+            | Confirm Password
+        br
+        input#Pass(type='Password', name='Pass', placeholder='Confirm Password')
+        br
+        br
+        input#log(type='button', name='log', value='Register')
+        
+    
