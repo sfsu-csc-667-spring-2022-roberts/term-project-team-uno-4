@@ -11,6 +11,7 @@
     grid-area: header;
 }
 
+
 #games-container {
     grid-area: gamesarea;
     position: relative;
