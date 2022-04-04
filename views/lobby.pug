@@ -6,12 +6,13 @@ head
   link(rel='stylesheet', href='public/stylesheets/chat.css')
   link(rel='stylesheet', href='public/stylesheets/lobby.css')
   link(rel='stylesheet', href='public/stylesheets/style.css')
-  
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
   title {{title}}
 main
   img.mb-4(src='images/uno.png', alt='', width='300', height='300')
   ul#menu
-    li
-      a(href='/create-game') Create Game
-    li
-      a(href='/join-game') Join Game
+    button.btn.btn-primary(onclick='window.location.href="/create-game"') Create Game
+    br
+    br
+    button.btn.btn-primary(onclick='window.location.href="/join-game"') Join Game
+      
