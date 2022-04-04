@@ -1,0 +1,82 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description', content='')
+  meta(name='author', content='')
+  link(rel='icon', href='images/uno.png')
+  title Uno-Game
+  // Bootstrap core CSS
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+  // CSS
+  link(rel='stylesheet', href='public/stylesheets/chat.css')
+  link(rel='stylesheet', href='public/stylesheets/lobby.css')
+  link(rel='stylesheet', href='public/stylesheets/style.css')
+  // Fonts
+  // Avenir-Medium
+  // Avenir-Heavy
+#game-page-container
+  .home
+    a.create(href='/') Home
+  .lobby
+    a.create(href='/lobby') Lobby
+  .rules
+    a.create(href='/rules') Rules
+  .logout
+    a.create(href='/users/logout') Log Out
+  .game-image
+    img.mb-4(src='public/images/uno.png', alt='', width='300', height='300')
+  .form-game
+    #winner
+    #welcome-game-user
+      h1 Welcome &apos;dev&apos;
+    #current-user
+      // Player 1
+      h2 Dev
+    #game-running
+      // Player 1 Deck
+      // 7 random cards
+      #mydeck.player1Deck
+      .game-middle
+        // Draw card button
+        #draw-card
+          button.btn.btn-primary Draw Card
+        // Discard pile (shows active_discard)
+        // <div id="discarded" class="middle-card"></div> 
+        #draw-pile-deck.middle-card
+          img(src='public/images/card_deck.png', alt='draw-pile-deck')
+        // Uno button (OPTIONAL)
+        button.btn.btn-danger(type='button', onclick='') Uno
+      .enemies
+        // Player 2 Deck
+        #deck2.playerDeck
+        .player2
+          h2 Player 2
+        // Player 3 Deck
+        #deck3.playerDeck
+        .player2
+          h2 Player 3
+        // Player 4 Deck
+        #deck4.playerDeck
+        .player2
+          h2 Player 4
+    br
+    #draw-pile-deck.middle-card
+      img(src='public/images/card_11.png', alt='draw-pile-deck')
+      img(src='public/images/card_4.png', alt='draw-pile-deck')
+      img(src='public/images/card_66.png', alt='draw-pile-deck')
+      img(src='public/images/card_22.png', alt='draw-pile-deck')
+      img(src='public/images/card_33.png', alt='draw-pile-deck')
+      img(src='public/images/card_44.png', alt='draw-pile-deck')
+      img(src='public/images/card_55.png', alt='draw-pile-deck')
+    #game-chat-container
+      br
+      br
+      // Container where active chat history is stored.
+      .chat-messages
+      // Container where user can type and send a message in chat.
+      #game-chatbox.chatbox
+        form#game-chat-form
+          br
+          input#gamemsg(type='text', placeholder='Enter message', required='')
+          button.chat-btn.btn.btn-success(padding='15') Send
