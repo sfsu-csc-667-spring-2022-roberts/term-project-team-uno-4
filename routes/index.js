@@ -17,4 +17,8 @@ router.get('/game', (req, res) => {
   res.render('game')
 })
 
+router.get('/lobby', (req, res) => {
+  res.render('lobby')
+})
+
 module.exports = router;
