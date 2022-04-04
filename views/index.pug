@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .logout
+    a.create(href='/rules') Rules
+  .center
+  img.mb-4(src='images/uno.png', alt='', width='300', height='300')
+  .mid
+    .links
+      .link1
+        button.btn.btn-secondary(onclick='window.location.href="/login"') Log in
+      .link2
+        button.btn.btn-primary(onclick='window.location.href="/register"') Create An Account
