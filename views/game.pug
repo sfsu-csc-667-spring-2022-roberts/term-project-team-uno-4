@@ -4,14 +4,14 @@ head
   meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
   meta(name='description', content='')
   meta(name='author', content='')
-  link(rel='icon', href='images/uno.png')
+  link(rel='icon', href='../public/images/uno.png')
   title Uno-Game
   // Bootstrap core CSS
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
   // CSS
-  link(rel='stylesheet', href='public/stylesheets/chat.css')
-  link(rel='stylesheet', href='public/stylesheets/lobby.css')
-  link(rel='stylesheet', href='public/stylesheets/style.css')
+  link(rel='stylesheet', href='../public/stylesheets/chat.css')
+  link(rel='stylesheet', href='../public/stylesheets/lobby.css')
+  link(rel='stylesheet', href='../public/stylesheets/style.css')
   // Fonts
   // Avenir-Medium
   // Avenir-Heavy
@@ -25,7 +25,7 @@ head
   .logout
     a.create(href='/users/logout') Log Out
   .game-image
-    img.mb-4(src='public/images/uno.png', alt='', width='300', height='300')
+    img.mb-4(src='../public/images/uno.png', alt='', width='300', height='300')
   .form-game
     #winner
     #welcome-game-user
@@ -44,7 +44,7 @@ head
         // Discard pile (shows active_discard)
         // <div id="discarded" class="middle-card"></div> 
         #draw-pile-deck.middle-card
-          img(src='public/images/card_deck.png', alt='draw-pile-deck')
+          img(src='../public/images/card_deck.png', alt='draw-pile-deck')
         // Uno button (OPTIONAL)
         button.btn.btn-danger(type='button', onclick='') Uno
       .enemies
@@ -62,7 +62,7 @@ head
           h2 Player 4
     br
     #draw-pile-deck.middle-card
-      img(src='public/images/card_11.png', alt='draw-pile-deck')
+      img(src='../public/images/card_11.png', alt='draw-pile-deck')
       img(src='public/images/card_4.png', alt='draw-pile-deck')
       img(src='public/images/card_66.png', alt='draw-pile-deck')
       img(src='public/images/card_22.png', alt='draw-pile-deck')
