@@ -1,0 +1,15 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible', content='IE=edge')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet', type='text/css', href='../public/stylesheets/style.css')
+  link(rel='stylesheet', type='text/css', href='../public/partials/navbar.handlebars')
+  title {{title}}
+main
+  img.mb-4(src='images/uno.png', alt='', width='300', height='300')
+  ul#menu
+    li
+      a(href='/create-game') Create Game
+    li
+      a(href='/join-game') Join Game
