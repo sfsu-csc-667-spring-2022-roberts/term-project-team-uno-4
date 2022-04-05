@@ -9,12 +9,10 @@ head
   // Bootstrap core CSS
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
   // CSS
-  link(rel='stylesheet', href='../public/stylesheets/chat.css')
-  link(rel='stylesheet', href='../public/stylesheets/lobby.css')
-  link(rel='stylesheet', href='../public/stylesheets/style.css')
-  // Fonts
-  // Avenir-Medium
-  // Avenir-Heavy
+  link(rel='stylesheet', href='/stylesheets/chat.css')
+  link(rel='stylesheet', href='/stylesheets/lobby.css')
+  link(rel='stylesheet', href='/stylesheets/style.css')
+
 #game-page-container
   .home
     a.create(href='/') Home
@@ -23,16 +21,16 @@ head
   .rules
     a.create(href='/rules') Rules
   .logout
-    a.create(href='/users/logout') Log Out
+    a.create(href='/') Log Out
   .game-image
-    img.mb-4(src='../public/images/uno.png', alt='', width='300', height='300')
+    img.mb-4(src='/images/unogame.png', alt='', width='300', height='300')
   .form-game
     #winner
     #welcome-game-user
       h1 Welcome &apos;dev&apos;
     #current-user
       // Player 1
-      h2 Dev
+      h2 Player 1
     #game-running
       // Player 1 Deck
       // 7 random cards
@@ -44,9 +42,9 @@ head
         // Discard pile (shows active_discard)
         // <div id="discarded" class="middle-card"></div> 
         #draw-pile-deck.middle-card
-          img(src='../public/images/card_deck.png', alt='draw-pile-deck')
+          img(src='/images/card_deck.png', alt='draw-pile-deck')
         // Uno button (OPTIONAL)
-        button.btn.btn-danger(type='button', onclick='') Uno
+        button.btn.btn-success(type='button', onclick='') START GAME
       .enemies
         // Player 2 Deck
         #deck2.playerDeck
@@ -62,13 +60,13 @@ head
           h2 Player 4
     br
     #draw-pile-deck.middle-card
-      img(src='../public/images/card_11.png', alt='draw-pile-deck')
-      img(src='public/images/card_4.png', alt='draw-pile-deck')
-      img(src='public/images/card_66.png', alt='draw-pile-deck')
-      img(src='public/images/card_22.png', alt='draw-pile-deck')
-      img(src='public/images/card_33.png', alt='draw-pile-deck')
-      img(src='public/images/card_44.png', alt='draw-pile-deck')
-      img(src='public/images/card_55.png', alt='draw-pile-deck')
+      img(src='/images/card_11.png', alt='draw-pile-deck')
+      img(src='/images/card_4.png',  alt='draw-pile-deck')
+      img(src='/images/card_66.png', alt='draw-pile-deck')
+      img(src='/images/card_22.png', alt='draw-pile-deck')
+      img(src='/images/card_33.png', alt='draw-pile-deck')
+      img(src='/images/card_44.png', alt='draw-pile-deck')
+      img(src='/images/card_55.png', alt='draw-pile-deck')
     #game-chat-container
       br
       br
