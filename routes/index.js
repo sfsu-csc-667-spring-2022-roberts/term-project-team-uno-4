@@ -21,4 +21,8 @@ router.get('/lobby', (req, res) => {
   res.render('lobby')
 })
 
+router.get('/rules', (req, res) => {
+  res.render('rules')
+})
+
 module.exports = router;
