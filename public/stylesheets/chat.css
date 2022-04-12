@@ -1,4 +1,6 @@
 .chat-messages {
+    display: flex;
+    flex-direction: row;
     position: relative;
     float: right;
     width: 100%;

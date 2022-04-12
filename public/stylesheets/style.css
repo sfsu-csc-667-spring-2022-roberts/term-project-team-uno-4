@@ -182,6 +182,12 @@ body {
   .form-game {
     font-family: Avenir-Medium;
     padding: 15px;
+
+  }
+  .form-game h1, .form-game h2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .game-image {
@@ -248,6 +254,10 @@ body {
   
   .player2 {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* border: solid; */
+    border: 2px solid #8b0;
+
   }
