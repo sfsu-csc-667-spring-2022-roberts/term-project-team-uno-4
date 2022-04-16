@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 /* GET home page. */
 router.get('/', (req, res) => {
   res.render('index', { title: 'UNO Game - CSC 667' });
@@ -24,5 +25,7 @@ router.get('/lobby', (req, res) => {
 router.get('/rules', (req, res) => {
   res.render('rules')
 })
+
+
 
 module.exports = router;
