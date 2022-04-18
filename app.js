@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
+const sessions = require('express-session');
+const flash = require('express-flash')
 
 if(process.env.NODE_ENV === 'development') {
   require("dotenv").config();
@@ -14,7 +17,15 @@ const testsRouter = require('./routes/tests');
 
 const app = express();
 
+app.use(sessions({
+  secret: "secret, UNO-GAME",
+  resave: false,
+  saveUninitialized: false
+}));
 
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
