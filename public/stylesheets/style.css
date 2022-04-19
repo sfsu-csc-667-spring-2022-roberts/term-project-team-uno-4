@@ -243,7 +243,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-=======
+  }
 body {
     height: 100%;
     display: -ms-flexbox;

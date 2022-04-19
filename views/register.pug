@@ -1,33 +1,14 @@
-extends layout
+include header 
 
-block content 
-    h2(style='text-align: center') Register Page
-    .login
-        form#login(method='get', action='login.php')
-        label#loginLabel
-        b
-            | User Name
-        br
-        input#Uname(type='text', name='Uname', placeholder='Username')
-        br
-        br
-        label#loginLabel
-        b
-            | Password
-        br
-        input#Pass(type='Password', name='Pass', placeholder='Password')
-        br
-        label#loginLabel
-        b
-            | Email 
-        br
-        input#email(type='text', name='email', placeholder="Email")
-        br 
-        label#loginLabel
-        b
-            | Confirm Password
-        br
-        input#Pass(type='Password', name='Pass', placeholder='Confirm Password')
-        br
-        br
-        input#log(type='button', name='log', value='Register')
+body 
+    .logout
+        a.create(href='/') Home
+    .form-signin
+        img.mb-4(src='/images/uno.png', alt='', width='300', height='300')
+        form(action='/users/register', method='POST', enctype='application/x-www-form-urlencoded')
+            .mid
+                input.form-control.bottom(type='text', name='username', placeholder='Enter a username', required='')
+                input.form-control.bottom(type='email', name='email', placeholder='Enter your email', required='')
+                input.form-control.bottom(type='text', name='password', placeholder='Enter a password', required='')
+                input.form-control.bottom(type='text', name='cpassword', placeholder='Confirm password', required='')
+                button.btn.btn-lg.btn-primary.btn-block.btn-signin(type='submit') SIGN UP

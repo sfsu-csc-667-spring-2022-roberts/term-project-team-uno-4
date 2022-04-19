@@ -1,6 +1,6 @@
-extends layout
+include header
 
-block content
+body
   .logout
     a.create(href='/rules') Rules
   .center
@@ -9,5 +9,6 @@ block content
     .links
       .link1
         button.btn.btn-secondary(onclick='window.location.href="/login"') Log in
+      br
       .link2
         button.btn.btn-primary(onclick='window.location.href="/register"') Create An Account

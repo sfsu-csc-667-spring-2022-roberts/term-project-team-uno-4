@@ -1,31 +1,19 @@
-extends layout
+include header
 
-block content 
-    h2(style='text-align: center') Login Page
-    .login
-        form#login(method='get', action='login.php')
-        label#loginLabel
-        b
-            | User Name
-        br
-        input#Uname(type='text', name='Uname', placeholder='Username')
-        br
-        br
-        label#loginLabel
-        b
-            | Password
-        br
-        input#Pass(type='Password', name='Pass', placeholder='Password')
-        br
-        br
-        input#log(type='button', name='log', value='Log In Here')
-        br
-        br
-        input#check(type='checkbox')
-        span Remember me
-        br
-        br
-        |         Forgot 
-        a(href='#') Password
+body 
+    .logout
+        a.create(href='/') Home
+    form.form-signin(action='/users/login', method='POST')
+        img.mb-4(src='images/uno.png', alt='', width='300', height='300')
+        .mid
+            input.form-control.bottom(type='text', name='username', placeholder='username', required='')
+            input.form-control.bottom(type='text', name='password', placeholder='password', required='')
+            button.btn.btn-lg.btn-primary.btn-block.btn-signin(type='submit') SIGN IN
+        .links
+            .link1
+                a.forgot(href='/register') Forgot password?
+            .link2
+                a.create(href='/register') Create An Account
+
     
 
