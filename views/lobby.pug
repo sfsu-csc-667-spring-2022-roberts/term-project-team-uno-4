@@ -4,17 +4,12 @@ head
   meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
   meta(name='description', content='')
   meta(name='author', content='')
-  link(rel='icon', href='images/uno.png')
+  link(rel='icon', href='/images/uno.png')
   title Uno-Game
-  // Bootstrap core CSS
   link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
-  // CSS
   link(rel='stylesheet', href='/stylesheets/style.css')
   link(rel='stylesheet', href='/stylesheets/lobby.css')
   link(rel='stylesheet', href='/stylesheets/chat.css')
-  // Fonts
-  // Avenir-Medium
-  // Avenir-Heavy
 #lobby-container.main-container
   #lobby-header
     .lobby
@@ -22,19 +17,27 @@ head
     .rules
       a.create(href='/rules') Rules
     .logout
-      a.create(href='/users/logout') Log Out
+      a.create(href='/') Log Out
     img.mb-4(src='images/uno.png', alt='', width='300', height='300')
     #welcome-user
-      h1 Welcome Players
+      h1 Welcome to Lobby
     form(action='/games/create', method='POST', enctype='application/x-www-form-urlencoded')
       input(type='text', name='title', placeholder='Create a Match Name', required='')
       button(type='submit') Create New Game
     .mid
-      h1 Current Games
+      h1 Games Ongoing
+  // List of Active Games
   // Main Container to store list of active games!
   #games-container
+    .games-row
+      .games-column  mygamecode 
+      .games-column 0/4
+      .games-column
+        #activegame1.game-listing(data-id='1') Join
   #lobby-chat-container
+    h1 Chat Box
     .chat-messages
+    
     #lobby-chatbox.chatbox
       form#lobby-chat-form
         input#lobbymsg(type='text', placeholder='Enter message', required='')
