@@ -11,6 +11,9 @@
 
 #lobby-header {
     grid-area: header;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -33,11 +36,8 @@
 
 .enemies{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     /* border: 2px solid; */
-}
-.playerDeck{
-    border: 2px solid;
 }
 
 .games-table {
@@ -55,9 +55,11 @@
 }
 
 .games-column {
-    float: left; /* fix for  buggy browsers */
+    float: left; /*fix for  buggy browsers*/
     display: table-column;         
     width: 7.5rem;
+    margin-left: 15px;
+    /* align-items: center; */
     /* background-color: #ccc;  */
 }
 
@@ -68,8 +70,7 @@
 
 .game-listing {
     cursor: pointer;
-
-    display:inline-block;
+    /* display:inline-block; */
     color:#444;
     border:1px solid #CCC;
     background:#DDD;
@@ -89,6 +90,10 @@
 #lobby-chat-container {
     grid-area: chatarea;
     margin-top: 10px;  
+<<<<<<< HEAD
+=======
+    align-items: center;
+>>>>>>> UNORemote/master
 }
 
 .chat-user {
@@ -101,7 +106,15 @@
 
 #lobbymsg {
     margin-top: 10px;
+    width: 80%;
 }
+<<<<<<< HEAD
+=======
+#gamemsg {
+    margin-top: 10px;
+    width: 80%;
+}
+>>>>>>> UNORemote/master
 
 .chat {
     background-color: #edf1fc;
