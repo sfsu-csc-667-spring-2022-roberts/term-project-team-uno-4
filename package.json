@@ -1,6 +1,6 @@
 {
   "name": "uno",
-  "version": "8.5.0",
+  "version": "16.14.2",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
