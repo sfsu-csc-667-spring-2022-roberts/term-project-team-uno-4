@@ -43,11 +43,8 @@ router.get('/user', function(req, res) {
   res.send(req.user);
 })
 
-<<<<<<< HEAD
 router.get('/rules', (req, res) => {
   res.render('rules')
 })
-=======
->>>>>>> UNORemote/master
 
 module.exports = router;
