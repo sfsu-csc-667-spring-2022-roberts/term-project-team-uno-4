@@ -28,6 +28,9 @@ router.get('/login', function(req, res, next) {
 router.get('/rules', function(req, res, next) {
   res.render('rules');
 });
+router.get('/game', function(req, res, next) {
+  res.render('game');
+});
 
 router.get('/lobby', ensureAuthenticated, function(req, res, next) {
   Games.listGames()
@@ -43,8 +46,5 @@ router.get('/user', function(req, res) {
   res.send(req.user);
 })
 
-router.get('/rules', (req, res) => {
-  res.render('rules')
-})
 
 module.exports = router;

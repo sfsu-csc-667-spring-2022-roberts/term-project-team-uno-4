@@ -90,10 +90,7 @@
 #lobby-chat-container {
     grid-area: chatarea;
     margin-top: 10px;  
-<<<<<<< HEAD
-=======
     align-items: center;
->>>>>>> UNORemote/master
 }
 
 .chat-user {
@@ -108,13 +105,10 @@
     margin-top: 10px;
     width: 80%;
 }
-<<<<<<< HEAD
-=======
 #gamemsg {
     margin-top: 10px;
     width: 80%;
 }
->>>>>>> UNORemote/master
 
 .chat {
     background-color: #edf1fc;

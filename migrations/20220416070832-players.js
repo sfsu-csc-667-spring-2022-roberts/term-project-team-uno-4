@@ -8,30 +8,26 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      win_status: {
+      winStatus: {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
       order: {
         type: Sequelize.INTEGER,
       },
-      card_count: {
+      cardCount: {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
-      current_player: { 
-        allowNull: false,
-        type: Sequelize.INTEGER // 0 for false, 1 for true
-      },
       //Foreign Keys
-      game_id: {
+      gameId: {
         type: Sequelize.INTEGER,
         refrences: {
           model: "games",
           key: "id",
         }
       },
-      user_id: {
+      userId: {
         type: Sequelize.INTEGER,
         refrences: {
           model: "users",
