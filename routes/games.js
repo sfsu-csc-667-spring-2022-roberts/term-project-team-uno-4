@@ -59,4 +59,18 @@ router.post("/list", (req, res) => {
     .catch(console.log);
 });
 
+/* JOIN A SPECIFIC GAME (by ID) */
+router.post("/:id/join", (req, res) => {
+    const { id } = req.params; // Game_id to join specific game by URL
+    // Current logged in user (req.user.id) wants to join game by game_id = id
+    Games.join(req.user.id, id)
+    .then(({id}) => {
+        console.log({id});
+        return ({id});
+    })
+    .then(({ id }) => res.json({ id }))
+    .catch(console.log);
+    
+});
+
 module.exports = router;
