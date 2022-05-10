@@ -18,14 +18,14 @@ module.exports = {
         allowNull: false
       },
       //Foreign Keys
-      userId: {
+      user_id: {
         type: Sequelize.INTEGER,
         refrences: {
           model: "users",
           key: "id",
         }
       },
-      gameId: {
+      game_id: {
         type: Sequelize.INTEGER,
         refrences: {
           model: "games",

@@ -13,21 +13,21 @@ module.exports = {
         defaultValue: 0
       },
       //Foreign Keys
-      playerId: {
+      player_id: {
         type: Sequelize.INTEGER,
         refrences: {
           model: "players",
           key: "id",
         }
       },
-      gameId: {
+      game_id: {
         type: Sequelize.INTEGER,
         refrences: {
           model: "games",
           key: "id",
         }
       },
-      cardId: {
+      card_id: {
         type: Sequelize.INTEGER,
         refrences: {
           model: "cards",
