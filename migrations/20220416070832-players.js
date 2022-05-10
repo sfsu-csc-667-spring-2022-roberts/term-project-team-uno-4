@@ -19,6 +19,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
+      current_player: { 
+        allowNull: false,
+        type: Sequelize.INTEGER // 0 for false, 1 for true
+      },
       //Foreign Keys
       game_id: {
         type: Sequelize.INTEGER,
