@@ -1,0 +1,29 @@
+<div class="container mt-5">
+   <div class="row mb-3">
+      <div class="col-12">
+         <div class="card">
+            <div class="text-center">
+               <div class="card-body">
+                  <% if (tuser.photo_path) { %>
+                  <div class="card-image mb-3">
+                     <img class="card-img-top" style="width:100px;height:100px;object-fit:contain;"
+                        src="/img/avatar/<%= tuser.photo_path %>" alt="<%= tuser.username %>">
+                  </div>
+                  <% } else { %>
+                  <div class="card-image mb-3">
+                     <img class="card-img-top" style="width:100px;height:100px;object-fit:contain;"
+                        src="/img/avatar/default.png" alt="<%= tuser.username %>">
+                  </div>
+                  <% } %>
+                  <h2 class="card-title mb-3"><%= tuser.username %></h2>
+                  <% if (tuser.id == user.id) { %>
+                  <p>
+                     <span><a href="/user/<%= tuser.username %>/edit">Edit profile</a></span>
+                  </p>
+                  <% } %>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
