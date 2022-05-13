@@ -1,0 +1,512 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:900);
+
+#drawCardPile {
+   left: 50px;
+}
+/* 
+#drawCardPile > .gcard {
+   margin-top: -7px;
+} */
+
+.drawCardContainer {
+   display: inline-block;
+}
+
+.activePlayer {
+   font-weight: bold;
+   color: #000;
+}
+
+.wildStyle {
+   height: 100vh;
+}
+
+.my-card {
+   position: relative;
+   top: 0;
+   transition: top 0.5s ease, margin-right 0.5s, margin-left 0.5s;
+   transition-delay: 0.1s;
+}
+
+.my-card:hover {
+   cursor: pointer;
+   top: -20px;
+   margin-right: 10px;
+   margin-left: 10px;
+}
+
+.sideHand > .gcard {
+   margin-right: 0;
+   margin-left: 0;
+   margin-bottom: -110px;
+}
+
+.center-card-hands {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.unoButton {
+   animation-name: unoButtonInvalid;
+   animation-duration: 0.5s;
+}
+
+#overlay {
+   position: fixed; /* Sit on top of the page content */
+   display: none; /* Hidden by default */
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(0, 0, 0, 0.5);
+   z-index: 200;
+}
+
+#text {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   font-size: 50px;
+   color: white;
+   transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+}
+
+.main-container {
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+}
+
+.size {
+   width: 5vw;
+   height: 5vw;
+   box-shadow: 2px 2px 3px black;
+   margin: 2rem;
+   cursor: pointer; /* Add a pointer on hover */
+}
+
+.red-circle {
+   background-color: #c72a18;
+   border-radius: 50%;
+   border: 2px solid #ffffff;
+}
+
+.blue-circle {
+   background-color: #0063b3;
+   border-radius: 50%;
+   border: 2px solid #ffffff;
+}
+
+.yellow-circle {
+   background-color: #e6ca1e;
+   border-radius: 50%;
+   border: 2px solid #ffffff;
+}
+
+.green-circle {
+   background-color: #18a849;
+   border-radius: 50%;
+   border: 2px solid #ffffff;
+}
+
+/* card */
+.gcard {
+   width: 110px;
+   height: 150px;
+   float: left;
+   background: #fff;
+   border-radius: 5px;
+   display: table;
+   box-sizing: border-box;
+   margin: 10px;
+   font-family: "Source Sans Pro", sans-serif;
+   font-size: 100px;
+   text-shadow: 1px 1px 0 #000000, -1px -1px 0 #000000, -1px 1px 0 #000000, 1px -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 0 -1px 0 #000000, 0 1px 0 #000000,
+      4px 4px 0 #000000;
+   box-shadow: 0 0 10px #777777;
+   text-align: center;
+   position: relative;
+   margin-left: -25px;
+   margin-right: -25px;
+   z-index: 99;
+}
+
+.gcard img {
+   width: 110px;
+   height: 150px;
+}
+
+.gcard .inner {
+   display: table-cell;
+   vertical-align: middle;
+   border-radius: 5px;
+   overflow: hidden;
+}
+
+.gcard .mark {
+   display: inline-block;
+   vertical-align: middle;
+   background: #ffffff;
+   margin: auto;
+   padding: 0 26px;
+   border-radius: 100px 60px / 120px 60px;
+   line-height: 1.4;
+}
+
+.gcard:before,
+.gcard:after {
+   display: inline-block;
+   position: absolute;
+   line-height: 0;
+   font-size: 20px;
+   color: #ffffff;
+   text-shadow: 1px 1px 0 #000000, -1px -1px 0 #000000, -1px 1px 0 #000000, 1px -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 0 -1px 0 #000000, 0 1px 0 #000000,
+      2px 2px 0 #000000;
+}
+
+.gcard:before {
+   top: 15px;
+   left: 10px;
+}
+.gcard:after {
+   bottom: 15px;
+   right: 10px;
+}
+
+.gcard.blue {
+   color: #0063b3;
+}
+
+.gcard.blue .inner {
+   background: #0063b3;
+}
+
+.gcard.green {
+   color: #18a849;
+}
+
+.gcard.green .inner {
+   background: #18a849;
+}
+
+.gcard.red {
+   color: #c72a18;
+}
+
+.gcard.red .inner {
+   background: #c72a18;
+}
+
+.gcard.yellow {
+   color: #e6ca1e;
+}
+
+.gcard.yellow .inner {
+   background: #e6ca1e;
+}
+
+.gcard.black {
+   color: #000000;
+}
+
+.gcard.black .inner {
+   background: #000000;
+}
+
+.cardsInInnerPlus4.black {
+   color: #000000;
+}
+
+.cardsInInnerPlus4.black .inner {
+   background: #000000;
+}
+
+.cardsInInnerPlus4.blue {
+   color: #0063b3;
+}
+
+.cardsInInnerPlus4.blue .inner {
+   background: #0063b3;
+}
+
+.cardsInInnerPlus2.blue {
+   color: #0063b3;
+}
+
+.cardsInInnerPlus2.blue .inner {
+   background: #0063b3;
+}
+
+.cardsInInnerPlus4.green {
+   color: #18a849;
+}
+
+.cardsInInnerPlus4.green .inner {
+   background: #18a849;
+}
+
+.cardsInInnerPlus4.red {
+   color: #c72a18;
+}
+
+.cardsInInnerPlus4.red .inner {
+   background: #c72a18;
+}
+
+.cardsInInnerPlus4.yellow {
+   color: #e6ca1e;
+}
+
+.cardsInInnerPlus4.yellow .inner {
+   background: #e6ca1e;
+}
+
+.gcard.num-0:before,
+.gcard.num-0:after {
+   content: "0";
+}
+
+.gcard.num-1:before,
+.gcard.num-1:after {
+   content: "1";
+}
+
+.gcard.num-2:before,
+.gcard.num-2:after {
+   content: "2";
+}
+
+.gcard.num-3:before,
+.gcard.num-3:after {
+   content: "3";
+}
+
+.gcard.num-4:before,
+.gcard.num-4:after {
+   content: "4";
+}
+
+.gcard.num-5:before,
+.gcard.num-5:after {
+   content: "5";
+}
+
+.gcard.num-6:before,
+.gcard.num-6:after {
+   content: "6";
+}
+
+.gcard.num-7:before,
+.gcard.num-7:after {
+   content: "7";
+}
+
+.gcard.num-8:before,
+.gcard.num-8:after {
+   content: "8";
+}
+
+.gcard.num-9:before,
+.gcard.num-9:after {
+   content: "9";
+}
+
+.gcard.num-6 .mark:after,
+.gcard.num-9 .mark:after {
+   display: block;
+   content: "";
+   position: relative;
+   top: -25px;
+   left: 5px;
+   width: 80%;
+   border: 1px solid #000000;
+   height: 4px;
+   box-shadow: 1px 1px 0 #000000;
+}
+.gcard.num-6.blue .mark:after,
+.gcard.num-9.blue .mark:after {
+   background: #0063b3;
+}
+.gcard.num-6.green .mark:after,
+.gcard.num-9.green .mark:after {
+   background: #18a849;
+}
+.gcard.num-6.red .mark:after,
+.gcard.num-9.red .mark:after {
+   background: #c72a18;
+}
+.gcard.num-6.yellow .mark:after,
+.gcard.num-9.yellow .mark:after {
+   background: #e6ca1e;
+}
+
+.gcard.plus-4:before,
+.gcard.plus-4:after {
+   content: "+4";
+}
+
+.gcard.draw2:before,
+.gcard.draw2:after {
+   content: "+2";
+}
+
+.gcard.skip {
+   font-size: 55px;
+}
+
+.gcard.skip:before,
+.gcard.skip:after {
+   content: "⊘";
+}
+
+.gcard.wild:before,
+.gcard.wild:after {
+   content: "W";
+}
+
+.gcard.reverse {
+   font-size: 73px;
+}
+
+.gcard.reverse .mark {
+   transform: rotate(-45deg);
+}
+
+.gcard.reverse:before,
+.gcard.reverse:after {
+   content: "⇄";
+   transform: rotate(-45deg);
+}
+
+.cardsInInnerPlus4 {
+   width: 26px;
+   height: 44px;
+   float: left;
+   background: #000;
+   border-radius: 5px;
+   display: table;
+   box-sizing: border-box;
+   padding: 3px;
+   margin: 10px;
+   box-shadow: 0 0 10px #000;
+   text-align: center;
+   position: relative;
+}
+
+.cardsInInnerPlus2 {
+   width: 26px;
+   height: 44px;
+   float: left;
+   background: #000;
+   border-radius: 5px;
+   display: table;
+   box-sizing: border-box;
+   padding: 3px;
+   margin: 10px;
+   box-shadow: 0 0 10px #000;
+   text-align: center;
+   position: relative;
+}
+
+.cardsInInnerSkip {
+   width: 26px;
+   height: 44px;
+   float: left;
+   background: #000;
+   border-radius: 5px;
+   box-sizing: border-box;
+   padding: 3px;
+   margin: 10px;
+   box-shadow: 0 0 10px #000;
+   text-align: center;
+   position: relative;
+}
+
+.card-plus4-green {
+   position: absolute;
+   left: 15px;
+   top: 90px;
+   z-index: 0.1;
+}
+
+.card-plus2-bottom-left {
+   position: absolute;
+   left: 30px;
+   top: 80px;
+   z-index: 0.1;
+}
+
+.card-plus4-blue {
+   position: absolute;
+   left: 30px;
+   top: 60px;
+   z-index: 0.2;
+}
+
+.card-plus2-top-right {
+   position: absolute;
+   left: 45px;
+   top: 50px;
+   z-index: 0.2;
+}
+
+.card-plus4-red {
+   position: absolute;
+   left: 45px;
+   top: 75px;
+   z-index: 0.3;
+}
+
+.card-plus4-yellow {
+   position: absolute;
+   left: 60px;
+   top: 45px;
+   z-index: 0.1;
+}
+
+/* Wild Card Circle */
+.circle-container {
+   width: 94px;
+   height: 130px;
+   float: left;
+   position: absolute;
+   left: 10px;
+   top: 24px;
+   z-index: 0.5;
+   transform: rotate(18deg);
+   transform: skew(-9deg, 0);
+}
+
+.quarter {
+   width: 47px;
+   height: 65px;
+}
+
+.top-left {
+   border-top-left-radius: 200px;
+   background: #c72a18;
+   float: left;
+}
+
+.top-right {
+   border-top-right-radius: 200px;
+   background: #0063b3;
+   float: right;
+}
+
+.bottom-left {
+   border-bottom-left-radius: 200px;
+   background: #e6ca1e;
+   float: left;
+}
+
+.bottom-right {
+   border-bottom-right-radius: 200px;
+   background: #18a849;
+   float: right;
+}

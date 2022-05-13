@@ -1,0 +1,21 @@
+<div class="container mt-5">
+   <div class="row">
+      <h2 class="mb-5">Edit profile</h2>
+      <div class="card p-3 mb-3">
+         <div class="d-flex justify-content-center">
+            <div style="max-width:500px;width:500px;;">
+               <form action="/user/<%= user.username %>/update/?_csrf=<%=csrfToken%>" method="post"
+                  enctype="multipart/form-data">
+                  <div class="form-group mb-2">
+                     <label for="id_image">Profile Image</label>
+                     <input type="file" class="form-control" id="id_image" name="image" accept="image/*">
+                  </div>
+                  <div class="text-start">
+                     <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

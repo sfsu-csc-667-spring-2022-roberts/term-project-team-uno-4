@@ -1,0 +1,123 @@
+<div class="container mt-4">
+	<div class="row">
+		<div class="col-12 mb-3">
+			<h1 class="m-0 p-0 text-center">Uno Game</h1>
+		</div>
+		<div class="card p-3 mb-3">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="mb-3">
+						<form id="roomform">
+							<div class="input-group mb-3">
+								<input type="text" id="roominput" class="form-control" placeholder="Room Name* (min: 3)">
+								<button type="submit" id="button-addon2" class="btn btn-success">Create Room</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-4">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-lg-8 mb-3">
+					<h3>Join Room</h3>
+					<div class="card p-1" style="height:500px;background:#aeafad;">
+						<ul id="allrooms" class="list-group table-striped" style="overflow-x:hidden; overflow-y: auto;">
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-4 mb-3">
+					<h3>Global Chat</h3>
+					<div class="card p-1" style="height:500px;background:#aeafad;">
+						<ul id="messages" class="list-group table-striped" style="overflow-x:hidden; overflow-y: auto;">
+
+						</ul>
+						<div class="" style="position:absolute;bottom:0;left:0;right:0;">
+							<form id="chatform">
+								<div class="input-group">
+									<input type="text" id="chatinput" class="form-control" placeholder="Message">
+									<button type="submit" id="button-addon2" class="btn btn-success">Send</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+	const endpoint = "http://localhost:5000";
+	const socket = io(endpoint, { autoConnect: false });
+
+	let username = '<%- user.username %>';
+	if (username) {
+		socket.auth = { username };
+	}
+	socket.connect();
+
+	var chatform = document.getElementById('chatform');
+	var chatinput = document.getElementById('chatinput');
+	var messages = document.getElementById('messages');
+
+	chatform.addEventListener('submit', function (e) {
+		e.preventDefault();
+		if (chatinput.value) {
+			socket.emit('global chat', chatinput.value);
+			chatinput.value = '';
+		}
+	});
+
+	socket.on('global chat', function (msg) {
+		var message = document.createElement("li");
+		message.innerHTML = `<span style="width:25px;height:25px;"><img style="width:25px;height:25px;" src="/img/avatar/default-image.png"
+									alt="#" /></span>
+							<span class="ml-2">${msg}</span>`;
+		message.classList.add("list-group-item");
+		messages.appendChild(message);
+		messages.scrollTo(0, document.body.scrollHeight);
+	});
+
+	var roomform = document.getElementById('roomform');
+	var roominput = document.getElementById('roominput');
+	var allrooms = document.getElementById("allrooms");
+
+	roomform.addEventListener('submit', function (e) {
+		e.preventDefault();
+		// if (!username) {
+		// 	alert("Login first");
+		// 	return;
+		// }
+		if (!roominput.value) {
+			alert("Room name is required");
+			return;
+		}
+		socket.emit("create room", roominput.value, (res) => {
+			if (res.status == false) {
+				window.location.href = endpoint + "/login"
+				return;
+			}
+			roominput.value = '';
+			window.location.href = endpoint + "/game?roomid=" + res.room.id;
+		});
+	});
+
+	socket.on("room update", function (rooms) {
+		allrooms.innerHTML = "";
+		let roomlist = Object.values(rooms)
+		roomlist.forEach(room => {
+			let list = document.createElement("li");
+			list.classList.add("list-group-item", "d-flex", "justify-content-between");
+			list.innerHTML = `<span> ${room.name} </span>
+				<span>
+					<span> ${room.users.length}/4 </span>
+					<a href="/game?roomid=${room.id}" class="btn btn-sm btn-success">Join Room</a>
+				</span>`
+
+			allrooms.appendChild(list);
+		});
+	});
+
+</script>

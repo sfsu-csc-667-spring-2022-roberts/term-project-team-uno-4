@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="/css/game.css" />
+<div class="container mt-4">
+   <div class="row">
+      <div class="card p-3 mb-3">
+         <div class="row justify-content-center">
+            <div class="col-lg-8 mb-3">
+               <div class="d-flex justify-content-between">
+                  <h3>Lobby <span id="lobbyname"></span></h3>
+                  <div>
+                     <button id="leavebtn" class="btn btn-sm btn-danger">Leave</button>
+                     <% if(isadmin) { %>
+                     <button id="startbtn" class="btn btn-sm btn-success" disabled>Start</button>
+                     <% } %>
+                  </div>
+               </div>
+               <div class="card p-1" style="height:500px;background:#aeafad;">
+                  <ul id="allusers" class="list-group" style="overflow-x:hidden;overflow-y:auto;">
+                  </ul>
+               </div>
+            </div>
+            <div class="col-lg-4 mb-3">
+               <h3>Room Chat</h3>
+               <div class="card p-1" style="height:500px;background:#aeafad;">
+                  <ul id="messages" class="list-group" style="overflow-x:hidden;overflow-y:auto;">
+                  </ul>
+                  <div style="position:absolute;bottom:0;left:0;right:0;">
+                     <form id="chatform">
+                        <div class="input-group">
+                           <input type="text" id="chatinput" class="form-control" placeholder="Message">
+                           <button type="submit" id="button-addon2" class="btn btn-success">Send</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+   let username = '<%- user.username %>';
+
+   const query = window.location.search;
+   const params = new URLSearchParams(query);
+   const roomid = params.get('roomid');
+
+   const endpoint = "http://localhost:5000";
+   const socket = io(endpoint + "?roomid=" + roomid, { autoConnect: false });
+
+   socket.auth = { username };
+   socket.connect();
+
+   var lobbyname = document.getElementById('lobbyname');
+   socket.emit("join room", roomid, (res) => {
+      if (res.status == false) {
+         alert(res.message);
+         window.location.href = endpoint;
+      } else {
+         lobbyname.innerHTML = res.room.name;
+         console.log(res.message);
+      }
+   })
+
+   var leavebtn = document.getElementById('leavebtn');
+   var startbtn = document.getElementById('startbtn');
+
+   leavebtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      socket.emit("leave room", username, (res) => {
+         if (res.status == true) {
+            window.location.href = endpoint;
+         }
+      });
+   })
+
+   var allusers = document.getElementById("allusers");
+
+   socket.on("lobby update", function (room) {
+      allusers.innerHTML = "";
+      room.users.forEach(user => {
+         let list = document.createElement("li");
+         list.classList.add("list-group-item", "d-flex", "justify-content-between");
+         list.innerHTML = `<span> ${user.username} </span>`
+         allusers.appendChild(list);
+      });
+      if (startbtn) {
+         if (room.users.length > 1) {
+            startbtn.disabled = false;
+         } else {
+            startbtn.disabled = true;
+         }
+      }
+   });
+
+   var chatform = document.getElementById('chatform');
+   var chatinput = document.getElementById('chatinput');
+   var messages = document.getElementById('messages');
+
+   chatform.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (chatinput.value) {
+         socket.emit('room chat', chatinput.value);
+         chatinput.value = '';
+      }
+   });
+
+   socket.on('room chat', function (msg) {
+      var message = document.createElement("li");
+      message.innerHTML = `<span style="width:25px;height:25px;"><img style="width:25px;height:25px;" src="/img/avatar/default-image.png"
+									alt="#" /></span>
+							<span class="ml-2">${msg}</span>`;
+      message.classList.add("list-group-item");
+      messages.appendChild(message);
+      messages.scrollTo(0, document.body.scrollHeight);
+   });
+
+</script>

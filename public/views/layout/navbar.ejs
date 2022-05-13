@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-sm navbar-light">
+   <div class="container">
+      <a class="navbar-brand" href="/">Uno Game</a>
+      <button class="navbar-toggler w-auto" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+         aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo02">
+         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+               <a class="nav-link" href="/">Lobby</a>
+            </li>
+            <li class="nav-item active">
+               <a class="nav-link" href="/rules">Rules</a>
+            </li>
+         </ul>
+         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <% if(typeof user !== 'undefined') { %>
+            <li class="nav-item">
+               <a class="nav-link" href="/user/<%= user.username %>"><%= user.username %></a>
+            </li>
+            <li>
+               <form action="/logout" method="post">
+                  <button class="btn btn-sm btn-danger" type="submit">Sign out</button>
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+               </form>
+            </li>
+            <% } else { %>
+            <li class="nav-item active">
+               <a class="nav-link" href="/login">Login</a>
+            </li>
+            <% } %>
+         </ul>
+      </div>
+   </div>
+</nav>
