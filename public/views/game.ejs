@@ -1,4 +1,8 @@
-<link rel="stylesheet" href="/css/game.css" />
+<link rel="stylesheet" type="text/css" href="/css/game.css" />
+<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+<link rel="stylesheet" type="text/css" href="/css/cards.css" />
+<link rel="stylesheet" type="text/css" href="/css/animations.css" />
+
 <div class="container mt-4">
    <div class="row">
       <div class="card p-3 mb-3">
@@ -8,14 +12,84 @@
                   <h3>Lobby <span id="lobbyname"></span></h3>
                   <div>
                      <button id="leavebtn" class="btn btn-sm btn-danger">Leave</button>
+                     <button class="btn btn-sm btn-success" onclick="startGame()">Start</button>
                      <% if(isadmin) { %>
-                     <button id="startbtn" class="btn btn-sm btn-success" disabled>Start</button>
+                     <button id="startbtn" class="btn btn-sm btn-success" onclick="startGame()" disabled>Start</button>
                      <% } %>
                   </div>
                </div>
-               <div class="card p-1" style="height:500px;background:#aeafad;">
+               <div class="card p-1" style="position:relative;height:500px;background:#aeafad;">
                   <ul id="allusers" class="list-group" style="overflow-x:hidden;overflow-y:auto;">
                   </ul>
+
+                  <div id="playingField" class="d-none">
+                     <div class="row">
+                        <div class="col center-card-hands" align="center">
+                           <div id="TopSeatID"></div>
+                           <div id="TopSeat"></div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-2">
+                           <div id="LeftSeatID"></div>
+                           <div id="LeftSeat" class="sideHand"></div>
+                        </div>
+
+                        <div class="col-md-8 center-card-hands" align="center">
+                           <div class="row" style="padding-top: 50px; padding-bottom: 50px">
+                              <div class="col" style="padding-right: 200px">
+                                 <div class="drawDeckOnPlayfield black">
+                                    <div id="drawCardPile">
+                                       <div class="gcard">
+                                          <img src="/img/cards/card_deck.png" alt="" />
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <div class="col">
+                                 <br />
+                                 <div id="unoButton">
+                                    <button class="btn btn-primary center-block" type="button" onclick="callUno()">
+                                       <h2>Call Uno!</h2>
+                                    </button>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div id="discardDeckDiv"></div>
+                              <div id="playfieldHand"></div>
+                           </div>
+                        </div>
+
+                        <div class="col-md-2">
+                           <div id="RightSeatID"></div>
+                           <div id="RightSeat" class="sideHand"></div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col center-card-hands" align="center">
+                           <div id="BottomSeatID"></div>
+                           <div id="BottomSeat"></div>
+                           <div id="player1Hand"></div>
+                        </div>
+                     </div>
+
+                     <div id="wildColor"></div>
+                     <div id="overlay">
+                        <div id="text">
+                           <center>Choose a color!</center>
+                           <div class="main-container">
+                              <div class="size red-circle" onclick="selectWildColor('Red')"></div>
+                              <div class="size blue-circle" onclick="selectWildColor('Blue')"></div>
+                              <div class="size yellow-circle" onclick="selectWildColor('Yellow')"></div>
+                              <div class="size green-circle" onclick="selectWildColor('Green')"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
             <div class="col-lg-4 mb-3">
@@ -37,6 +111,14 @@
       </div>
    </div>
 </div>
+
+<script type="text/javascript" src="/js/deck.js"></script>
+<script type="text/javascript" src="/js/cards.js"></script>
+<script type="text/javascript" src="/js/special-cards.js"></script>
+<script type="text/javascript" src="/js/addCSSToCards.js"></script>
+<script type="text/javascript" src="/js/animations.js"></script>
+<script type="text/javascript" src="/js/players.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>

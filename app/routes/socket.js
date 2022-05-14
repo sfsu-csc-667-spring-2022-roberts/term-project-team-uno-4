@@ -63,12 +63,23 @@ module.exports = function (app, io, socket, rooms) {
                }
             }
 
+            io.emit("room update", rooms);
+            io.to(roomid).emit("lobby update", room);
+
             callback({ status: true, room: room });
          });
 
          socket.on("room chat", (msg) => {
             io.to(roomid).emit("room chat", msg);
          });
+
+         socket.on("start game", () => {});
+
+         socket.on("draw card", () => {});
+
+         socket.on("play card", () => {});
+
+         socket.on("end game", () => {});
 
          socket.on("disconnect", () => {
             console.log("User: " + socket.username + " disconnected");
