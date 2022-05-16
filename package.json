@@ -1,39 +1,42 @@
 {
-  "name": "uno",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "start:dev": "NODE_ENV=development DEBUG=APP_NAME:* nodemon ./bin/www",
-    "db:create:migration": "npx sequelize migration:generate --name ",
-    "db:migrate": "npx sequelize db:migrate",
-    "db:rollback": "npx sequelize db:migrate:undo"
-  },
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "dotenv": "^16.0.0",
-    "ejs": "^3.1.7",
-    "express": "~4.16.1",
-    "express-flash": "^0.0.2",
-    "express-session": "^1.17.2",
-    "express-sessions": "^1.0.6",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "passport": "^0.5.2",
-    "passport-local": "^1.0.0",
-    "pg": "^8.7.3",
-    "pg-format": "^1.0.4",
-    "pg-promise": "^10.11.1",
-    "pgtools": "^0.3.2",
-    "postgres": "^3.0.5",
-    "pug": "^3.0.2",
-    "sequelize": "^6.19.0",
-    "sequelize-cli": "^6.4.1",
-    "socket.io": "^4.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  }
+   "name": "unogame",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "postinstall": "npx sequelize db:migrate",
+      "start": "node index.js",
+      "start:dev": "NODE_ENV=development DEBUG=APP_NAME:* nodemon ./bin/www",
+      "watch": "nodemon index.js",
+      "db:create:migration": "npx sequelize migration:generate --name ",
+      "db:migrate": "npx sequelize db:migrate",
+      "db:rollback": "npx sequelize db:migrate:undo"
+   },
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+      "bcryptjs": "^2.4.3",
+      "connect-ensure-login": "^0.1.1",
+      "cookie-parser": "^1.4.6",
+      "cors": "^2.8.5",
+      "csurf": "^1.11.0",
+      "dotenv": "^16.0.0",
+      "ejs": "^3.1.7",
+      "ejs-yield": "^1.0.0",
+      "express": "^4.18.1",
+      "express-session": "^1.17.2",
+      "ioredis": "^5.0.4",
+      "morgan": "^1.10.0",
+      "multer": "^1.4.4",
+      "passport": "^0.5.2",
+      "passport-local": "^1.0.0",
+      "pg": "^8.7.3",
+      "pg-hstore": "^2.3.4",
+      "sequelize": "^6.19.0",
+      "socket.io": "^4.5.0"
+   },
+   "devDependencies": {
+      "nodemon": "^2.0.16",
+      "sequelize-cli": "^6.4.1"
+   }
 }

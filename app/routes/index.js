@@ -15,6 +15,6 @@ module.exports = function (app, io) {
       next();
    });
 
-   const server = require("./socket");
-   io.on("connection", (socket) => server(app, io, socket, rooms));
+   const server = require("../socket");
+   io.on("connection", (socket) => server(io, socket, rooms));
 };

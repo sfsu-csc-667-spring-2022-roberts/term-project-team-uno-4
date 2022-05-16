@@ -1,198 +1,105 @@
-$(document).ready(function () {
-   $(document).on("click", ".my-card", function () {
-      let cardIndex = $(".my-card").index(this);
-      players[gameTurn].playerDeck.playCard(cardIndex);
-   });
-});
-
-// global Playfield Card
-let discardPile = new Deck("discardDeckDiv", false);
-
-// create a Global array to store players
+let game_data;
+let discard_pile = new Deck("discardDeckDiv", false);
 let players = [];
+let playing_index;
 
-// amount of players in the game
-let amtPlayers = 4;
-
-// initial amount of cards for each player
-let initialCards = 7;
-
-// global Turn Tracker
-let gameTurn = 0;
-
-// set direction of game, 1 for forward, -1 for backward
-let gameDirection = 1;
-
-// store if initial draw
-let initialDraw = true;
-
-// store how many +2, or +4s are stacked
 let drawStack = {
-   cardValue: 0,
-   stackAmt: 0,
-   cardType: 2, // either 2 or 4
-   updateStack: function () {
-      document.getElementById("drawCardPile").innerHTML = "+" + this.cardType * this.stackAmt;
+   updateVisual: function (card_type, stack_amt) {
+      document.getElementById("drawCardPile").innerHTML = "+" + card_type * stack_amt;
    },
    clearVisual: function () {
       document.getElementById("drawCardPile").innerHTML = "";
    },
 };
 
-/**
- * Change the displayed text and call function to randomize playfield card
- */
-function initializeWindow() {
-   // re-assign global card value to random values
-   selectPlayfieldCard();
-   discardPile.reloadHand();
+function initGame(data) {
+   initializeWindow(data);
+   initializePlayer(data);
+   initializePlayers(data);
+   highlightPlayerTurn(data.turn);
 }
 
-function initializePlayers() {
-   // fill the players array with 2-4 people or bots (future; currently only allows two players)
-   let seats = ["BottomSeat", "RightSeat", "TopSeat", "LeftSeat"];
-   let botNames = [
-      "Buffy Summers",
-      "Hermione Granger",
-      "Derek Zoolander",
-      "Elle Woods",
-      "Dr. Rumack",
-      "Wade Wilson",
-      "Chon Wang",
-      "Regina George",
-      "Ron Burgundy",
-      "Lord Dark Helmet",
-      "Edna Mode",
-      "Randle McMurphy",
-      "Optimus Prime",
-      "Clarice Starling",
-      "Norman Bates",
-      "Groot",
-      "Leslie Knope",
-      "Gromit",
-      "Red",
-      "Samwise Gamgee",
-      "Bilbo Baggins",
-      "Katherine G. Johnson",
-      "Ace Ventura",
-      "Sarah Connor",
-      "Axel Foley",
-      "Elaine Benes",
-      "Daenerys Targaryen",
-      "Dorothy Gale",
-      "Vito Corleone",
-      "Arya Stark",
-      "Shuri",
-      "Shaun Riley",
-      "Obi-Wan Kenobi",
-      "Captain America",
-      "Ferris Bueller",
-      "Dorothy Vaughan",
-      "Rocky Balboa",
-      "Atticus Finch",
-      "Brienne of Tarth",
-      "Jules Winnfield",
-      "Peter Venkman",
-      "Gandalf",
-      "Imperator Furiosa",
-      "Forrest Gump",
-      "Sansa Stark",
-      "Patrick Bateman",
-      "Rey",
-      "Hannibal Lecter",
-      "Doc Brown",
-      "Rick Blaine",
-      "Captain Jack Sparrow",
-      "Ellen Ripley",
-      "Mary Jackson",
-      "Iron Man",
-      "Marty McFly",
-      "Michael Corleone",
-      "Annalise Keating",
-   ];
+function updateGame(data) {
+   getPlayfieldCards(data.discard_pile.cards);
+   discard_pile.reloadHand();
 
-   while (players.length < amtPlayers) {
-      let seatIndex = Math.round(4 / amtPlayers) * players.length;
-      let playerHandDiv = seats[seatIndex];
+   players[data.player.index].deck.addCards(data.player.cards);
+   players[data.player.index].deck.reloadHand();
+   for (let i = 0; i < data.players.length; i++) {
+      players[data.players[i].index].deck.setAmtCards(data.players[i].cards_amt);
+      players[data.players[i].index].deck.reloadHand();
+   }
+   highlightPlayerTurn(data.turn);
+}
+
+function initializeWindow(data) {
+   getPlayfieldCards(data.discard_pile.cards);
+   discard_pile.reloadHand();
+}
+
+function getPlayfieldCards(cards) {
+   let tempCards = [];
+   for (let card of cards) {
+      let tempCard = new Card(card.color, card.value);
+      tempCards.push(tempCard);
+   }
+   discard_pile.addCards(tempCards);
+}
+
+function initializePlayer(data) {
+   let playerHandDiv = "BottomSeat";
+   let playerHandLabel = playerHandDiv + "ID";
+
+   let tempDeck = new Deck(playerHandDiv, false);
+
+   document.getElementById(playerHandLabel).innerHTML = "<h3> You </h3>";
+
+   let tempPlayer = new Player(data.player.id, data.player.name, tempDeck, data.player.index);
+
+   players[data.player.index] = tempPlayer;
+   players[data.player.index].deck.addCards(data.player.cards);
+   players[data.player.index].deck.reloadHand();
+}
+
+function initializePlayers(data) {
+   let seats = ["BottomSeat", "LeftSeat", "TopSeat", "RightSeat"];
+   if (data.player_count == 2) {
+      let playerHandDiv = "TopSeat";
       let playerHandLabel = playerHandDiv + "ID";
 
-      let tempDeck;
+      let tempDeck = new Deck(playerHandDiv, true);
 
-      if (players.length == 0) {
-         tempDeck = new Deck(playerHandDiv, false);
-      } else {
-         tempDeck = new Deck(playerHandDiv, true); // set to true to blackout
-      }
+      document.getElementById(playerHandLabel).innerHTML = "<h3>" + data.players[0].name + "</h3>";
 
-      let tempID = "You";
-
-      let tempIndex = players.length - 1;
-
-      let isBot = false;
-
-      let botIndex = Math.floor(Math.random() * botNames.length);
-      let botName = botNames[botIndex];
-
-      if (players.length != 0 || tempID == "Bot") {
-         tempID = botName;
-         botNames.splice(botIndex, 1);
-         isBot = true;
-      }
-
-      document.getElementById(playerHandLabel).innerHTML = "<h3 class='user-id'>" + tempID + "</h3>";
-
-      let tempPlayer = new Player(tempDeck, tempID, tempIndex, isBot, false);
-
-      players.push(tempPlayer);
-
-      for (let i = 0; i < initialCards; i++) {
-         players[players.length - 1].playerDeck.drawCard();
-      }
-   }
-
-   initialDraw = false;
-
-   play();
-}
-
-function startGame() {
-   let playerName = "You";
-   document.getElementById("allusers").classList.add("d-none");
-   document.getElementById("playingField").classList.remove("d-none");
-   let playerAmt = 4;
-   amtPlayers = playerAmt;
-
-   initializeWindow();
-   initializePlayers();
-}
-
-function play() {
-   if (players[gameTurn].isBot) {
-      setTimeout(function () {
-         for (let i = 0; i < players.length; i++) {
-            document.getElementById(players[i].playerDeck.hand.id + "ID").childNodes[0].classList.remove("activePlayer");
-         }
-         document.getElementById(players[gameTurn].playerDeck.hand.id + "ID").childNodes[0].classList.add("activePlayer");
-         players[gameTurn].botLogic();
-      }, 1000);
+      let tempPlayer = new Player(data.players[0].id, data.players[0].name, tempDeck, data.players[0].index);
+      players[data.players[0].index] = tempPlayer;
+      players[data.players[0].index].deck.setAmtCards(data.players[0].cards_amt);
+      players[data.players[0].index].deck.reloadHand();
    } else {
-      setTimeout(function () {
-         for (let i = 0; i < players.length; i++) {
-            document.getElementById(players[i].playerDeck.hand.id + "ID").childNodes[0].classList.remove("activePlayer");
+      for (let i = 0; i < data.players.length; i++) {
+         let pindex = data.players[i].index - data.player.index;
+         console.log(pindex);
+         let playerHandDiv;
+         if (pindex > 0) {
+            playerHandDiv = seats[pindex];
+         } else {
+            playerHandDiv = seats[data.player_count + pindex];
          }
-         document.getElementById(players[gameTurn].playerDeck.hand.id + "ID").childNodes[0].classList.add("activePlayer");
-      }, 1000);
+         let playerHandLabel = playerHandDiv + "ID";
+         let tempDeck = new Deck(playerHandDiv, true);
+         document.getElementById(playerHandLabel).innerHTML = "<h3>" + data.players[i].name + "</h3>";
+
+         let tempPlayer = new Player(data.players[i].id, data.players[i].name, tempDeck, data.players[i].index);
+         players[data.players[i].index] = tempPlayer;
+         players[data.players[i].index].deck.setAmtCards(data.players[i].cards_amt);
+         players[data.players[i].index].deck.reloadHand();
+      }
    }
 }
 
-/**
- * Uno call button
- */
-function callUno() {
-   if (players[gameTurn].playerDeck.amtCards > 2) {
-      players[gameTurn].playerDeck.drawCard();
-      players[gameTurn].playerDeck.drawCard();
-   } else {
-      players[gameTurn].unoCall = true;
+function highlightPlayerTurn(turn) {
+   for (let i = 0; i < players.length; i++) {
+      document.getElementById(players[i].deck.hand.id + "ID").childNodes[0].classList.remove("active-player");
    }
+   document.getElementById(players[turn].deck.hand.id + "ID").childNodes[0].classList.add("active-player");
 }

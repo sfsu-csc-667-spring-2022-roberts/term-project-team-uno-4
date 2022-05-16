@@ -10,19 +10,16 @@ module.exports = function (app, rooms) {
       let roomid = req.query.roomid;
       if (roomid && rooms[roomid] !== undefined) {
          let room = rooms[roomid];
-         let isadmin = isAdmin(room.users, req.user.username);
-         return res.layout("game", { title: "Game", user: req.user, room, isadmin });
-      } else {
-         return res.redirect("/");
-      }
-   });
-
-   function isAdmin(users, username) {
-      for (let user of users) {
-         if (user.username == username && user.isadmin == true) {
-            return true;
+         if (room.playerExists(req.user.username)) {
+            let isadmin = room.playerIsAdmin(req.user.username);
+            let tmp_room = {
+               id: room.id,
+               name: room.name,
+               player_count: room.player_count,
+            };
+            return res.layout("game", { title: "Game", user: req.user, room: tmp_room, isadmin });
          }
       }
-      return false;
-   }
+      return res.redirect("/");
+   });
 };
