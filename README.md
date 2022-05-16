@@ -16,13 +16,71 @@ https://uno-team-4.herokuapp.com/
 
 ## Tools Used
 
+* HTML, CSS, Bootstrap → For designing frontend
+* .ejs → Templating engine
+* JavaScript → For adding functionalities + game logic
+* Node.js, Express.js, Sequelize → For backend development
+* Socket.io → For communication b/w server & client
+* Postgres → For storing information in database
+* GitHub → For Code sharing and version control
+* Heroku → For Deployment of the web app
+ 
 ## Description
+
+* We have built a multiplayer UNO Game which supports arbitrary number of players and game rooms. We have replicated the general idea of UNO card game and implemented the logic and design as a web application. In this game, players are challenged to see who can empty their set of cards first to win the game.
+* Players can create and join game rooms, chat with each other in the global chat and also chat among players while playing the game. 
+* Players can upload a Profile Picture and also view their number of wins and losses.
+* Our team members collaborated using various tools to successfully build this real-time multiplayer game.
 
 ## Features
 
-## Cards + Rules
+* Players can Create an Account and Sign In.
+* Players can Upload a Profile Picture and check their total number of Wins and Losses in the Profile Section.
+* Create a Game Room or Join One. 
+* This game supports multiple game rooms and 2-4 players.
+* Chat with players in the Global Chat.
+* To play the game, each player must throw a card that has one matching characteristic of the card that is on existing deck. 
+* Cards can only be matched by their Colors or their Number value.
+* Special Cards → Draw 2, Draw 4, Reverse, Skip, Wild Card, Wild Draw 4
+* More game rules and specifications can be found in the Rules Page of our web app.
+
+## Milestones
+[Milestone 1,2 - Web App Concept, Wireframes, Game Rules + Features + Functionalities](/Milestones/Milestone%201%2C%202.pdf)\
+[Milestone 3,4 - Web App Entity Design, Application Logic](/Milestones/Milestone%203%2C%204.pdf)\
+[Milestone 5 - Development Progress](/Milestones/Milestone%205.pdf)\
+[Final Presentation here - Final Documentation](/Milestones/)
 
 ## Install and Run Instructions
 
+* Install Node & PostgreSQL
+* Navigate to src folder of project in terminal
+* Install node modules ```npm install```
+* Setup database migration ```npm run db:migrate```
+* Run the game ```npm run start:dev```
+* Visit ```http://localhost:3000/``` to run the application
+* To play the game on remote server, Visit the Heroku Deployed [Link here](https://uno-team-4.herokuapp.com/)
 
+## Interesting Parts during the Build Process
+
+* The most interesting part of this build process was to actually code the game which we have been playing in our real lives using paper cards.
+* Collaborating with different team members and learn new technologies was interesting.
+* Creating a screen for uploading profile picture and keeping a count of wins + losses was fun to add.
+* Building an intuitive UI design was also important to give a nice feel to the players and have them remember the original UNO card game.
+
+## Difficulties we had and how we overcame them
+
+* It was hard to coordinate schedules for team meetings, since the members of our group lived in different time zones.
+* Everyone worked on a little bit of everything rather than having a designated person work on a specific area.
+* Learning PostgreSQL and Sequelize
+* Building the game logic consumed most of the time and figuring out how to handle card images dynamically
+* We researched many solutions and tested them to build the right logic
+* Using Heroku was challenging and we encountered a lot of errors trying to deploy to heroku throughout the development
+* One temporary solution we used was creating another git repository and deployed it from there, while simultaneously copy code into this repository to showcase progress
+
+## Future Updates and Fixes
+
+* We allowed users to upload a profile image to their account but it does not display the image next to their name when sending messages
+* We tried implementing a call-uno button but trying to figure out the logic was difficult 	
+* Currently this button isn’t functional but our plan was to only let the player win if they called uno before playing their last card
+* When having to draw 2/4 cards, players have to click on the +2/+4 icon to be dealt the cards instead of automatically dealing the cards
 
