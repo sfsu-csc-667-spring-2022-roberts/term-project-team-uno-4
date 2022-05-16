@@ -11,6 +11,9 @@
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
 
+### Team Members: 
+Dev Soni, Vicente Pericone, Vandit Malik, Aryan Sharma
+
 ## Deployed on Heroku
 https://uno-team-4.herokuapp.com/
 
