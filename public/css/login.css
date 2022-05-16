@@ -123,3 +123,10 @@ p.help {
    background-repeat: no-repeat;
    background-position: center left;
 }
+
+.loginimg{
+   max-height: 50%; 
+   max-width: 50%; 
+   margin: auto; 
+   display: block;
+}
