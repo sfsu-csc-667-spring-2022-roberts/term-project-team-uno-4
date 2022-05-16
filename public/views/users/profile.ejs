@@ -16,6 +16,13 @@
                   </div>
                   <% } %>
                   <h2 class="card-title mb-3"><%= tuser.username %></h2>
+
+                  <div class="mb-2">
+                     Wins: <%= tuser.wins %>
+                  </div>
+                  <div class="mb-3">
+                     Losses: <%= tuser.losses %>
+                  </div>
                   <% if (tuser.id == user.id) { %>
                   <p>
                      <span><a href="/user/<%= tuser.username %>/edit">Edit profile</a></span>

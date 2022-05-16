@@ -1,26 +1,107 @@
-<link rel="stylesheet" href="/css/game.css" />
+<link rel="stylesheet" type="text/css" href="/css/game.css" />
+<link rel="stylesheet" type="text/css" href="/css/cards.css" />
+<link rel="stylesheet" type="text/css" href="/css/animations.css" />
+
 <div class="container mt-4">
    <div class="row">
       <div class="card p-3 mb-3">
          <div class="row justify-content-center">
-            <div class="col-lg-8 mb-3">
+            <div class="col-12 mb-3">
                <div class="d-flex justify-content-between">
-                  <h3>Lobby <span id="lobbyname"></span></h3>
+                  <h3>Lobby <span id="lobbyname">
+                        <%= room.name %>
+                     </span></h3>
                   <div>
-                     <button id="leavebtn" class="btn btn-sm btn-danger">Leave</button>
                      <% if(isadmin) { %>
-                     <button id="startbtn" class="btn btn-sm btn-success" disabled>Start</button>
-                     <% } %>
+                        <button id="leavebtn" class="btn btn-sm btn-danger" onclick="leaveRoom()">End Game</button>
+                        <button id="startbtn" class="btn btn-sm btn-success" onclick="startGame()" disabled>Start
+                           Game</button>
+                        <% } else { %>
+                           <button id="leavebtn" class="btn btn-sm btn-danger" onclick="leaveRoom()">Leave</button>
+                           <% } %>
                   </div>
                </div>
-               <div class="card p-1" style="height:500px;background:#aeafad;">
-                  <ul id="allusers" class="list-group" style="overflow-x:hidden;overflow-y:auto;">
-                  </ul>
+               <div class="card" style="position:relative;min-height:500px;background:#aeafad;">
+                  <div id="waiting_field">
+                     <ul id="players_list" class="list-group" style="overflow-x:hidden;overflow-y:auto;">
+                     </ul>
+                  </div>
+
+                  <div id="playing_field" style="display: none;">
+                     <div class="row my-2">
+                        <div class="col-12 center-card-hand">
+                           <div id="TopSeatID" class="player-name"></div>
+                           <div class="center-hand">
+                              <div id="TopSeat"></div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-3 col-lg-2">
+                           <div id="LeftSeatID" class="player-name"></div>
+                           <div class="side-hand left-seat">
+                              <div id="LeftSeat"></div>
+                           </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-8 center-card-hand">
+                           <div class="row my-2">
+                              <div class="col-6">
+                                 <div class="draw-deck-field">
+                                    <div id="drawCardPile" class="draw-stack-count" onclick="drawCard()"></div>
+                                 </div>
+                              </div>
+                              <div class="col-6">
+                                 <div id="uno_button">
+                                    <button class="btn btn-danger center-block" type="button" onclick="callUno()">
+                                       <h3>Call Uno!</h3>
+                                    </button>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row my-2">
+                              <div id="discardDeckDiv"></div>
+                              <div id="playfieldHand"></div>
+                           </div>
+                        </div>
+
+                        <div class="col-md-3 col-lg-2">
+                           <div id="RightSeatID" class="player-name"></div>
+                           <div class="side-hand right-seat">
+                              <div id="RightSeat"></div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="row my-2">
+                        <div class="col-12 center-card-hand">
+                           <div id="BottomSeatID" class="player-name"></div>
+                           <div class="center-hand">
+                              <div id="BottomSeat"></div>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div id="wild_color"></div>
+
+                     <div id="chose_color">
+                        <div class="chose-container">
+                           <center>Choose a color!</center>
+                           <div class="chose-body">
+                              <div class="chose-circle red-circle" onclick="selectWildColor('Red')"></div>
+                              <div class="chose-circle blue-circle" onclick="selectWildColor('Blue')"></div>
+                              <div class="chose-circle yellow-circle" onclick="selectWildColor('Yellow')"></div>
+                              <div class="chose-circle green-circle" onclick="selectWildColor('Green')"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
-            <div class="col-lg-4 mb-3">
+            <div class="col-12 mb-3">
                <h3>Room Chat</h3>
-               <div class="card p-1" style="height:500px;background:#aeafad;">
+               <div class="card" style="height:500px;background:#aeafad;">
                   <ul id="messages" class="list-group" style="overflow-x:hidden;overflow-y:auto;">
                   </ul>
                   <div style="position:absolute;bottom:0;left:0;right:0;">
@@ -38,82 +119,26 @@
    </div>
 </div>
 
-<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/js/add_image_to_card.js"></script>
+<script type="text/javascript" src="/js/card.js"></script>
+<script type="text/javascript" src="/js/deck.js"></script>
+<script type="text/javascript" src="/js/player.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
 <script>
-   let username = '<%- user.username %>';
-
+   const username = '<%- user.username %>';
    const query = window.location.search;
    const params = new URLSearchParams(query);
    const roomid = params.get('roomid');
 
-   const endpoint = "http://localhost:5000";
+   const endpoint = "https://uno-team-4.herokuapp.com";
    const socket = io(endpoint + "?roomid=" + roomid, { autoConnect: false });
 
-   socket.auth = { username };
-   socket.connect();
-
-   var lobbyname = document.getElementById('lobbyname');
-   socket.emit("join room", roomid, (res) => {
-      if (res.status == false) {
-         alert(res.message);
-         window.location.href = endpoint;
-      } else {
-         lobbyname.innerHTML = res.room.name;
-         console.log(res.message);
-      }
-   })
-
-   var leavebtn = document.getElementById('leavebtn');
-   var startbtn = document.getElementById('startbtn');
-
-   leavebtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      socket.emit("leave room", username, (res) => {
-         if (res.status == true) {
-            window.location.href = endpoint;
-         }
-      });
-   })
-
-   var allusers = document.getElementById("allusers");
-
-   socket.on("lobby update", function (room) {
-      allusers.innerHTML = "";
-      room.users.forEach(user => {
-         let list = document.createElement("li");
-         list.classList.add("list-group-item", "d-flex", "justify-content-between");
-         list.innerHTML = `<span> ${user.username} </span>`
-         allusers.appendChild(list);
-      });
-      if (startbtn) {
-         if (room.users.length > 1) {
-            startbtn.disabled = false;
-         } else {
-            startbtn.disabled = true;
-         }
-      }
-   });
-
-   var chatform = document.getElementById('chatform');
-   var chatinput = document.getElementById('chatinput');
-   var messages = document.getElementById('messages');
-
-   chatform.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (chatinput.value) {
-         socket.emit('room chat', chatinput.value);
-         chatinput.value = '';
-      }
-   });
-
-   socket.on('room chat', function (msg) {
-      var message = document.createElement("li");
-      message.innerHTML = `<span style="width:25px;height:25px;"><img style="width:25px;height:25px;" src="/img/avatar/default-image.png"
-									alt="#" /></span>
-							<span class="ml-2">${msg}</span>`;
-      message.classList.add("list-group-item");
-      messages.appendChild(message);
-      messages.scrollTo(0, document.body.scrollHeight);
-   });
-
+   if (username !== undefined) {
+      socket.auth = { username };
+      socket.connect();
+   } else {
+      window.location.href = endpoint + "/login";
+   }
 </script>
+<script type="text/javascript" src="/js/socket.js"></script>
