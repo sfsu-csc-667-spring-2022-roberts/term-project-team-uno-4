@@ -48,7 +48,7 @@ https://uno-team-4.herokuapp.com/
 [Milestone 1,2 - Web App Concept, Wireframes, Game Rules + Features + Functionalities](/Milestones/Milestone%201%2C%202.pdf)\
 [Milestone 3,4 - Web App Entity Design, Application Logic](/Milestones/Milestone%203%2C%204.pdf)\
 [Milestone 5 - Development Progress](/Milestones/Milestone%205.pdf)\
-[Final Presentation here - Final Documentation](/Milestones/)
+[Final Presentation here - Final Documentation](/Milestones/Final%20Presentation.pdf)
 
 ## Install and Run Instructions
 
