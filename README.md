@@ -45,7 +45,8 @@ https://uno-team-4.herokuapp.com/
 * To play the game, each player must throw a card that has one matching characteristic of the card that is on existing deck. 
 * Cards can only be matched by their Colors or their Number value.
 * Special Cards → Draw 2, Draw 4, Reverse, Skip, Wild Card, Wild Draw 4
-* More game rules and specifications can be found in the Rules Page of our web app.
+* **SPECIAL RULE: Click CALL UNO! when you have 2 cards remaining.**
+* More game rules and specifications can be found in the [Rules Page](https://uno-team-4.herokuapp.com/rules) 
 
 ## Milestones
 [Milestone 1,2 - Web App Concept, Wireframes, Game Rules + Features + Functionalities](/Milestones/Milestone%201%2C%202.pdf)\
@@ -84,6 +85,6 @@ https://uno-team-4.herokuapp.com/
 
 * We allowed users to upload a profile image to their account but it does not display the image next to their name when sending messages
 * We tried implementing a call-uno button but trying to figure out the logic was difficult 	
-* Currently this button isn’t functional but our plan was to only let the player win if they called uno before playing their last card
+* Right now, players have to press the call-uno button before playing their second to last card which isn’t what we wanted, instead we’ll change it to last card
 * When having to draw 2/4 cards, players have to click on the +2/+4 icon to be dealt the cards instead of automatically dealing the cards
 
