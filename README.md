@@ -88,3 +88,6 @@ https://uno-team-4.herokuapp.com/
 * Right now, players have to press the call-uno button before playing their second to last card which isn’t what we wanted, instead we’ll change it to last card
 * When having to draw 2/4 cards, players have to click on the +2/+4 icon to be dealt the cards instead of automatically dealing the cards
 
+## Rules
+
+<img src="/public/img/rules.png">
